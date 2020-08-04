@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import os
+import twilio_client
+from config.twilio import RECIPIENT_PHONE_NUM
 
 sources = {
     "treasury_emergency_loans": {
@@ -12,6 +14,8 @@ sources = {
 
 def notify(url, element_name):
     print(url, element_name)
+    twilio_client.send_message("URL {} had a change in element {}".format(url, element_name),
+                               recipient_phone_num=RECIPIENT_PHONE_NUM)
 
 
 def process_news(job_name, sources):
@@ -38,5 +42,6 @@ def process_news(job_name, sources):
 
 
 if __name__ == "__main__":
-    os.makedirs("diffs",exist_ok=True)
+    os.makedirs("diffs", exist_ok=True)
     process_news("treasury_emergency_loans", sources)
+    notify("http://test", "test")
