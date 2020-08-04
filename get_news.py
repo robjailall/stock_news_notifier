@@ -44,4 +44,3 @@ def process_news(job_name, sources):
 if __name__ == "__main__":
     os.makedirs("diffs", exist_ok=True)
     process_news("treasury_emergency_loans", sources)
-    notify("http://test", RECIPIENT_PHONE_NUM)
