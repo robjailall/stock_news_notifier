@@ -13,7 +13,7 @@ client = Client(account_sid, auth_token)
 def send_message(message, recipient_phone_num):
     message = client.messages.create(
         to=recipient_phone_num,
-        from_=TWILIO_FROM_PHONE_NUM,
+        from_=from_phone_num,
         body=message)
 
     print(message.sid)
