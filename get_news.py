@@ -3,6 +3,7 @@ import requests
 import os
 import twilio_client
 from config.twilio import RECIPIENT_PHONE_NUM
+import logging
 
 sources = {
     "treasury_emergency_loans": {
@@ -13,7 +14,7 @@ sources = {
 
 
 def notify(url, element_name):
-    print(url, element_name)
+    logging.info("Notifying... ", url, element_name)
     twilio_client.send_message("URL {} had a change in element {}".format(url, element_name),
                                recipient_phone_num=RECIPIENT_PHONE_NUM)
 

@@ -1,5 +1,6 @@
 from config.twilio import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_PHONE_NUM
 from twilio.rest import Client
+import logging
 
 # Your Account SID from twilio.com/console
 account_sid = TWILIO_ACCOUNT_SID
@@ -16,4 +17,4 @@ def send_message(message, recipient_phone_num):
         from_=from_phone_num,
         body=message)
 
-    print(message.sid)
+    logging.debug(message.sid)
