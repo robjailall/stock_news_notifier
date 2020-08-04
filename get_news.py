@@ -19,6 +19,7 @@ def notify(url):
 
 
 def process_news(job_name, sources):
+    logging.debug("Processing job ", job_name)
     url = sources[job_name]["url"]
     element_selector = sources[job_name]["element_selector"]
     html_doc = requests.get(url)
