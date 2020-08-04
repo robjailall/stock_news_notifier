@@ -21,22 +21,31 @@ def notify(url):
 def process_news(job_name, sources):
     logging.debug("Processing job {}".format(job_name))
     url = sources[job_name]["url"]
-    element_selector = sources[job_name]["element_selector"]
     html_doc = requests.get(url)
-    soup = BeautifulSoup(html_doc.text, 'html.parser')
+
+    last_version_fn = "diffs/{}.txt".format(job_name)
+    if os.path.exists(last_version_fn):
+        with open(last_version_fn) as f:
+            last_version = f.read().strip()
+
+    current_version_html = get_element_text(html_doc.text, job_name, sources)
+
+    if current_version_html is not None:
+        # compare versions
+        if last_version != current_version_html:
+            notify(url)
+
+        with open(last_version_fn, "w") as f:
+            f.write(current_version_html)
+
+
+def get_element_text(html_doc, job_name, sources):
+    element_selector = sources[job_name]["element_selector"]
+    soup = BeautifulSoup(html_doc, 'html.parser')
     current_element_html = soup.find(None, element_selector)
     if current_element_html is not None:
         current_element_html = current_element_html.get_text(strip=True)
-
-        last_load_fn = "diffs/{}.txt".format(job_name)
-        if os.path.exists(last_load_fn):
-            with open(last_load_fn) as f:
-                last_load = f.read().strip()
-            if last_load != current_element_html:
-                notify(url)
-
-        with open(last_load_fn, "w") as f:
-            f.write(current_element_html)
+    return current_element_html
 
 
 def process_sources(sources):
