@@ -12,18 +12,18 @@ LOGLEVEL = os.environ.get('LOGLEVEL', 'WARNING').upper()
 logging.basicConfig(level=LOGLEVEL)
 
 
-def notify(url, element_name):
-    logging.info("Notifying of change in {} and element {}", url, element_name)
-    twilio_client.send_message("URL {} had a change in element {}".format(url, element_name),
+def notify(url):
+    logging.info("Notifying of change in {}".format(url))
+    twilio_client.send_message("URL {} had a change".format(url),
                                recipient_phone_num=RECIPIENT_PHONE_NUM)
 
 
 def process_news(job_name, sources):
     url = sources[job_name]["url"]
-    element_name = sources[job_name]["element_selector"]
+    element_selector = sources[job_name]["element_selector"]
     html_doc = requests.get(url)
     soup = BeautifulSoup(html_doc.text, 'html.parser')
-    current_element_html = soup.find(None, {"id": element_name})
+    current_element_html = soup.find(None, element_selector)
     if current_element_html is not None:
         current_element_html = current_element_html.get_text(strip=True)
 
@@ -32,10 +32,7 @@ def process_news(job_name, sources):
             with open(last_load_fn) as f:
                 last_load = f.read().strip()
             if last_load != current_element_html:
-                notify(url, element_name)
-
-            if current_element_html != last_load:
-                notify(url, element_name)
+                notify(url)
 
         with open(last_load_fn, "w") as f:
             f.write(current_element_html)
