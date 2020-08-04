@@ -28,7 +28,7 @@ def process_news(job_name, sources):
         with open(last_version_fn) as f:
             last_version = f.read().strip()
 
-    current_version_html = get_element_text(html_doc.text, job_name, sources)
+    current_version_html = get_element_text(html=html_doc.text, element_selector=sources[job_name]["element_selector"])
 
     if current_version_html is not None:
         # compare versions
@@ -39,9 +39,8 @@ def process_news(job_name, sources):
             f.write(current_version_html)
 
 
-def get_element_text(html_doc, job_name, sources):
-    element_selector = sources[job_name]["element_selector"]
-    soup = BeautifulSoup(html_doc, 'html.parser')
+def get_element_text(html, element_selector):
+    soup = BeautifulSoup(html, 'html.parser')
     current_element_html = soup.find(None, element_selector)
     if current_element_html is not None:
         current_element_html = current_element_html.get_text(strip=True)
