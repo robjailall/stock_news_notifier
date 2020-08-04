@@ -1,4 +1,4 @@
-from config.twilio import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_PHONE_NUM
+from config.twilio import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_PHONE_NUM, TWILIO_TESTING
 from twilio.rest import Client
 import logging
 
@@ -12,9 +12,11 @@ client = Client(account_sid, auth_token)
 
 
 def send_message(message, recipient_phone_num):
-    message = client.messages.create(
-        to=recipient_phone_num,
-        from_=from_phone_num,
-        body=message)
+    logging.debug(message)
 
-    logging.debug(message.sid)
+    if not TWILIO_TESTING:
+        response = client.messages.create(
+            to=recipient_phone_num,
+            from_=from_phone_num,
+            body=message)
+        logging.debug(response.sid)
