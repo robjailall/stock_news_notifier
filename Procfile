@@ -1,1 +1,1 @@
-web:
+worker: watch -n10 python get_news.py
