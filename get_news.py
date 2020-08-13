@@ -1,5 +1,6 @@
 import logging
 import os
+import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -7,6 +8,7 @@ from bs4 import BeautifulSoup
 import twilio_client
 from config.news_sources import news_sources
 from config.twilio import RECIPIENT_PHONE_NUM
+from config.notifier import CHECK_INTERVAL_SECONDS
 
 LOGLEVEL = os.environ.get('LOGLEVEL', 'WARNING').upper()
 logging.basicConfig(level=LOGLEVEL)
@@ -55,4 +57,6 @@ def process_sources(sources):
 
 if __name__ == "__main__":
     os.makedirs("diffs", exist_ok=True)
-    process_sources(sources=news_sources)
+    while True:
+        process_sources(sources=news_sources)
+        time.sleep(CHECK_INTERVAL_SECONDS)

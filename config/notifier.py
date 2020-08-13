@@ -1,0 +1,3 @@
+import os
+
+CHECK_INTERVAL_SECONDS = os.getenv("CHECK_INTERVAL_SECONDS", default=600)
