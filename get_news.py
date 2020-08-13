@@ -24,6 +24,7 @@ def process_news(job_name, sources):
     html_doc = requests.get(url)
 
     last_version_fn = "diffs/{}.txt".format(job_name)
+    last_version = None
     if os.path.exists(last_version_fn):
         with open(last_version_fn) as f:
             last_version = f.read().strip()
