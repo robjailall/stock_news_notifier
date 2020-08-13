@@ -1,1 +1,1 @@
-worker: watch -n10 python get_news.py
+worker: watch -n600 python get_news.py
