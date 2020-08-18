@@ -1,14 +1,15 @@
 import logging
 import os
 import time
+from difflib import unified_diff
 
 import requests
 from bs4 import BeautifulSoup
 
 import twilio_client
 from config.news_sources import news_sources
-from config.twilio import RECIPIENT_PHONE_NUM
 from config.notifier import CHECK_INTERVAL_SECONDS, DEVELOPMENT_MODE, DB_SOURCE_TYPE
+from config.twilio import RECIPIENT_PHONE_NUM
 
 LOGLEVEL = os.environ.get('LOGLEVEL', 'WARNING').upper()
 logging.basicConfig(level=LOGLEVEL)
@@ -16,10 +17,10 @@ logging.basicConfig(level=LOGLEVEL)
 
 def get_db(source_type):
     if source_type == "postgres":
-        from postgres_db import create_db
+        from dbs.postgres_db import create_db
         return create_db()
     else:
-        from file_db import create_db
+        from dbs.file_db import create_db
         return create_db()
 
 
@@ -31,19 +32,24 @@ def notify(url):
 
 def process_news(db, job_name, sources):
     logging.debug("Processing job {}".format(job_name))
+
     url = sources[job_name]["url"]
-    html_doc = requests.get(url)
+    current_html_doc = requests.get(url)
+    current_version = get_element_text(html=current_html_doc.text,
+                                       element_selector=sources[job_name]["element_selector"])
 
-    last_version = db.get_last_crawl(news_source=job_name)
+    if current_version is not None:
 
-    current_version_html = get_element_text(html=html_doc.text, element_selector=sources[job_name]["element_selector"])
+        last_version = db.get_last_crawl(news_source=job_name)
+        if last_version:
+            diff_string = "\n".join(list(unified_diff(last_version.splitlines(), current_version.splitlines())))
+        else:
+            diff_string = current_version
 
-    if current_version_html is not None:
-        # compare versions
-        if last_version != current_version_html:
+        if last_version != current_version:
             notify(url)
 
-        db.save_last_crawl(job_name, current_version_html)
+        db.save_last_crawl(job_name, current_version, diff_string=diff_string)
 
 
 def get_element_text(html, element_selector):

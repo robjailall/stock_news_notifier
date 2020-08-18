@@ -44,7 +44,6 @@ class PostgresSource(object):
         connection = self.connection
         cursor = connection.cursor()
 
-        # Print PostgreSQL version
         cursor.execute("SELECT last_scrape from public.source_crawls where source_key = %s", (news_source,))
         record = cursor.fetchone()
         if record is not None:
@@ -52,14 +51,13 @@ class PostgresSource(object):
         else:
             return None
 
-    def save_last_crawl(self, news_source, text):
+    def save_last_crawl(self, news_source, text, diff_string=""):
         connection = self.connection
         cursor = connection.cursor()
 
-        # Print PostgreSQL version
         cursor.execute(
-            "INSERT INTO public.source_crawls(source_key, last_scrape)  VALUES(%s, %s) ON CONFLICT (source_key) DO UPDATE SET last_scrape = %s, last_update = NOW()",
-            (news_source, text, text,))
+            "INSERT INTO public.source_crawls(source_key, last_scrape, last_diff)  VALUES(%s, %s, %s) ON CONFLICT (source_key) DO UPDATE SET last_scrape = %s, last_diff = %s, last_update = NOW()",
+            (news_source, text, diff_string, text, diff_string))
 
         connection.commit()
 

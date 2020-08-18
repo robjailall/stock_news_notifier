@@ -13,7 +13,7 @@ class FileSource(object):
                 last_version = f.read().strip()
         return last_version
 
-    def save_last_crawl(self, news_source, text):
+    def save_last_crawl(self, news_source, text, diff_string=""):
         text = text or ""
         fn = "diffs/{}.txt".format(news_source)
         with open(fn, "w") as f:
