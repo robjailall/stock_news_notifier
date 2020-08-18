@@ -8,7 +8,9 @@ account_sid = TWILIO_ACCOUNT_SID
 auth_token = TWILIO_AUTH_TOKEN
 from_phone_num = TWILIO_FROM_PHONE_NUM
 
-client = Client(account_sid, auth_token)
+client = None
+if not TWILIO_TESTING:
+    client = Client(account_sid, auth_token)
 
 
 def send_message(message, recipient_phone_num):
