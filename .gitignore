@@ -4,4 +4,4 @@ __pycache__/
 data/
 .DS_Store
 diffs
-.bashenv
+config/.bashenv

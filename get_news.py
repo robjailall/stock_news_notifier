@@ -41,15 +41,20 @@ def process_news(db, job_name, sources):
     if current_version is not None:
 
         last_version = db.get_last_crawl(news_source=job_name)
-        if last_version:
-            diff_string = "\n".join(list(unified_diff(last_version.splitlines(), current_version.splitlines())))
-        else:
-            diff_string = current_version
 
         if last_version != current_version:
             notify(url)
 
+        diff_string = get_diff_string(current_version, last_version)
         db.save_last_crawl(job_name, current_version, diff_string=diff_string)
+
+
+def get_diff_string(current_version, last_version):
+    if last_version:
+        diff_string = "\n".join(list(unified_diff(last_version.splitlines(), current_version.splitlines())))
+    else:
+        diff_string = current_version
+    return diff_string
 
 
 def get_element_text(html, element_selector):
