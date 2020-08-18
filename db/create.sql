@@ -64,21 +64,6 @@ ALTER TABLE ONLY public.source_crawls ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Data for Name: source_crawls; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.source_crawls (id, source_key, last_scrape, last_update, last_diff) FROM stdin;
-\.
-
-
---
--- Name: source_crawls_sampleid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.source_crawls_sampleid_seq', 16, true);
-
-
---
 -- Name: source_crawls source_crawls_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
