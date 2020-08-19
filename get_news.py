@@ -24,10 +24,12 @@ def get_db(source_type):
         return create_db()
 
 
-def notify(url):
-    logging.info("Notifying of change in {}".format(url))
-    twilio_client.send_message("URL {} had a change".format(url),
+def notify(url, diff_text=""):
+    # text messages are limited to 160 characters, so use 130 as a safe size
+    message = "Changed URL: {}. \n{}".format(url, diff_text)[0:130]
+    twilio_client.send_message(message,
                                recipient_phone_num=RECIPIENT_PHONE_NUM)
+    logging.info(message)
 
 
 def process_news(db, job_name, sources):
@@ -42,10 +44,10 @@ def process_news(db, job_name, sources):
 
         last_version = db.get_last_crawl(news_source=job_name)
 
-        if last_version != current_version:
-            notify(url)
-
         diff_string = get_diff_string(current_version, last_version)
+        if last_version != current_version:
+            notify(url, diff_text=diff_string)
+
         db.save_last_crawl(job_name, current_version, diff_string=diff_string)
 
 
