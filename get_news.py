@@ -26,7 +26,7 @@ def get_db(source_type):
 
 def notify(url, diff_text=""):
     # text messages are limited to 160 characters, so use 130 as a safe size
-    message = "Changed URL: {}. \n{}".format(url, diff_text)[0:130]
+    message = "Changed URL: {}. \n{}".format(url, diff_text[0:100])
     twilio_client.send_message(message,
                                recipient_phone_num=RECIPIENT_PHONE_NUM)
     logging.info(message)
