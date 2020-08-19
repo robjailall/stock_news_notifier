@@ -37,8 +37,11 @@ def process_news(db, job_name, sources):
 
     url = sources[job_name]["url"]
     current_html_doc = requests.get(url)
-    current_version = get_element_text(html=current_html_doc.text,
-                                       element_selector=sources[job_name]["element_selector"])
+    if sources[job_name].get("format") == "json":
+        current_version = current_html_doc.text
+    else:
+        current_version = get_element_text(html=current_html_doc.text,
+                                           element_selector=sources[job_name]["element_selector"])
 
     if current_version is not None:
 
@@ -46,7 +49,8 @@ def process_news(db, job_name, sources):
 
         diff_string = get_diff_string(current_version, last_version)
         if last_version != current_version:
-            notify(url, diff_text=diff_string)
+            redirect_url = sources[job_name].get("redirect_url") or url
+            notify(redirect_url, diff_text=diff_string)
 
         db.save_last_crawl(job_name, current_version, diff_string=diff_string)
 
