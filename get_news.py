@@ -1,8 +1,8 @@
+import json
 import logging
 import os
-import time
-import json
 import pprint
+import time
 from difflib import unified_diff
 
 import requests
@@ -51,10 +51,7 @@ def process_news(db, job_name, sources):
 
         last_version = db.get_last_crawl(news_source=job_name)
 
-        if source_format == "json":
-            diff_string = get_json_diff_string(current_version, last_version)
-        else:
-            diff_string = get_diff_string(current_version, last_version)
+        diff_string = get_diff_string(current_version, last_version)
 
         if last_version != current_version:
             redirect_url = sources[job_name].get("redirect_url") or url
@@ -66,21 +63,6 @@ def process_news(db, job_name, sources):
 def get_diff_string(current_version, last_version):
     if last_version:
         diff_string = "\n".join(list(unified_diff(last_version.splitlines(), current_version.splitlines())))
-    else:
-        diff_string = current_version
-    return diff_string
-
-
-def get_json_diff_string(current_version, last_version):
-    if last_version:
-        diff_string = "\n".join(
-            list(
-                unified_diff(
-                    pprint.pformat(last_version).splitlines(),
-                    pprint.pformat(current_version).splitlines()
-                )
-            )
-        )
     else:
         diff_string = current_version
     return diff_string
@@ -106,7 +88,7 @@ def get_json_element(text, element_selector=None):
                     break
             json_dict = element
 
-    return json.dumps(json_dict)
+    return pprint.pformat(json.dumps(json_dict))
 
 
 def process_sources(sources):
