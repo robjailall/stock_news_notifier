@@ -1,6 +1,7 @@
 import logging
 import os
 import time
+import json
 from difflib import unified_diff
 
 import requests
@@ -38,7 +39,8 @@ def process_news(db, job_name, sources):
     url = sources[job_name]["url"]
     current_html_doc = requests.get(url)
     if sources[job_name].get("format") == "json":
-        current_version = current_html_doc.text
+        current_version = get_json_element(text=current_html_doc.text,
+                                           element_selector=sources[job_name]["element_selector"])
     else:
         current_version = get_element_text(html=current_html_doc.text,
                                            element_selector=sources[job_name]["element_selector"])
@@ -69,6 +71,21 @@ def get_element_text(html, element_selector):
     if current_element_html is not None:
         current_element_html = current_element_html.get_text(strip=True)
     return current_element_html
+
+
+def get_json_element(text, element_selector=None):
+    if text is not None:
+        json_dict = json.loads(text)
+        if "key_chain" in element_selector:
+            key_chain = element_selector["key_chain"]
+            element = json_dict
+            for key in key_chain:
+                element = element.get(key)
+                if element is None:
+                    break
+            json_dict = element
+
+    return json.dumps(json_dict)
 
 
 def process_sources(sources):
