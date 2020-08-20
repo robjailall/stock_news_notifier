@@ -2,6 +2,7 @@ import logging
 import os
 import time
 import json
+import pprint
 from difflib import unified_diff
 
 import requests
@@ -38,7 +39,8 @@ def process_news(db, job_name, sources):
 
     url = sources[job_name]["url"]
     current_html_doc = requests.get(url)
-    if sources[job_name].get("format") == "json":
+    source_format = sources[job_name].get("format")
+    if source_format == "json":
         current_version = get_json_element(text=current_html_doc.text,
                                            element_selector=sources[job_name]["element_selector"])
     else:
@@ -49,7 +51,11 @@ def process_news(db, job_name, sources):
 
         last_version = db.get_last_crawl(news_source=job_name)
 
-        diff_string = get_diff_string(current_version, last_version)
+        if source_format == "json":
+            diff_string = get_json_diff_string(current_version, last_version)
+        else:
+            diff_string = get_diff_string(current_version, last_version)
+            
         if last_version != current_version:
             redirect_url = sources[job_name].get("redirect_url") or url
             notify(redirect_url, diff_text=diff_string)
@@ -60,6 +66,21 @@ def process_news(db, job_name, sources):
 def get_diff_string(current_version, last_version):
     if last_version:
         diff_string = "\n".join(list(unified_diff(last_version.splitlines(), current_version.splitlines())))
+    else:
+        diff_string = current_version
+    return diff_string
+
+
+def get_json_diff_string(current_version, last_version):
+    if last_version:
+        diff_string = "\n".join(
+            list(
+                unified_diff(
+                    pprint.pformat(last_version).splitlines(),
+                    pprint.pformat(current_version.splitlines())
+                )
+            )
+        )
     else:
         diff_string = current_version
     return diff_string
