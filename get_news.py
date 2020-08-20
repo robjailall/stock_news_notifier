@@ -55,7 +55,7 @@ def process_news(db, job_name, sources):
             diff_string = get_json_diff_string(current_version, last_version)
         else:
             diff_string = get_diff_string(current_version, last_version)
-            
+
         if last_version != current_version:
             redirect_url = sources[job_name].get("redirect_url") or url
             notify(redirect_url, diff_text=diff_string)
@@ -77,7 +77,7 @@ def get_json_diff_string(current_version, last_version):
             list(
                 unified_diff(
                     pprint.pformat(last_version).splitlines(),
-                    pprint.pformat(current_version.splitlines())
+                    pprint.pformat(current_version).splitlines()
                 )
             )
         )
