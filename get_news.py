@@ -88,7 +88,16 @@ def get_json_element(text, element_selector=None):
                     break
             json_dict = element
 
-    return pprint.pformat(json.dumps(json_dict))
+    if type(json_dict) == list:
+        filtered_results = []
+        if "result_key_filter" in element_selector:
+            keys_to_extract = element_selector["result_key_filter"]
+            for result in json_dict:
+                filtered_results.append(
+                    {your_key: result.get(your_key) for your_key in keys_to_extract})
+            json_dict = filtered_results
+
+    return pprint.pformat(json_dict)
 
 
 def process_sources(sources):
