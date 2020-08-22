@@ -17,6 +17,6 @@ news_sources = {
             "result_key_filter": ["title", "description"]
         },
         # "element_selector": {"id": "results_list"},
-        "redirect_url": "https://search.hhs.gov/searchblox/hhs/index.html?query=Warp%20speed%20contract%20&page=1&pagesize=30&sort=article:modified_time&sortdir=desc&HHS=Search&adsCname=HHS&adsDisplay=true&cname=hhsgov_only&default=AND&tune=true&tune.0=10&tune.1=8&tune.2=2&tune.3=5&tune.4=365&tune.5=30"
+        "redirect_url": "https://tinyurl.com/y2omfm6l"
     }
 }
