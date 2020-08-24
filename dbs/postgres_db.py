@@ -55,16 +55,26 @@ class PostgresSource(object):
         connection = self.connection
         cursor = connection.cursor()
 
-        cursor.execute(
-            "INSERT INTO public.source_crawls(source_key, last_scrape, last_diff)  "
-            "VALUES(%s, %s, %s) "
-            "ON CONFLICT (source_key) "
-            "DO UPDATE SET "
-            "last_scrape = %s, "
-            "last_diff = %s, "
-            "last_update = NOW()",
-            (news_source, text, diff_string, text, diff_string))
+        if len(diff_string) > 0:
 
+            cursor.execute(
+                "INSERT INTO public.source_crawls(source_key, last_scrape, last_diff)  "
+                "VALUES(%s, %s, %s) "
+                "ON CONFLICT (source_key) "
+                "DO UPDATE SET "
+                "last_scrape = %s, "
+                "last_diff = %s, "
+                "last_update = NOW()",
+                (news_source, text, diff_string, text, diff_string))
+        else:
+            cursor.execute(
+                "INSERT INTO public.source_crawls(source_key, last_scrape)  "
+                "VALUES(%s, %s) "
+                "ON CONFLICT (source_key) "
+                "DO UPDATE SET "
+                "last_scrape = %s, "
+                "last_update = NOW()",
+                (news_source, text, text))
         connection.commit()
 
 
