@@ -10,7 +10,7 @@ news_sources = {
         }
     },
     "hhs_warp_speed": {
-        "url": "https://search.hhs.gov/searchblox/servlet/SearchServlet?HHS=Search&adsCname=HHS&adsDisplay=true&cname=hhsgov_only&default=AND&facet=true&page=1&pagesize=30&query=Warp%2520speed%2520contract%2520&sort=article%3Amodified_time&sortdir=desc&tune=true&tune.0=10&tune.1=8&tune.2=2&tune.3=5&tune.4=365&tune.5=30&xsl=json",
+        "url": "https://search.hhs.gov/searchblox/servlet/SearchServlet?HHS=Search&adsCname=HHS&adsDisplay=true&cname=hhsgov_only&startdate=3&startdate=0&default=AND&facet=true&page=1&pagesize=30&query=Warp%2520speed%2520contract%2520&tune=true&tune.0=10&tune.1=8&tune.2=2&tune.3=5&tune.4=365&tune.5=30&xsl=json",
         "format": "json",
         "element_selector": {
             "key_chain": ["results", "result"],
