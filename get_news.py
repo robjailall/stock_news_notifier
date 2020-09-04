@@ -37,7 +37,7 @@ def notify(url, diff_text=""):
 def process_news(db, job_name, sources):
     logging.debug("Processing job {}".format(job_name))
 
-    url = sources[job_name]["url"]
+    url = sources[job_name]["url"]()  # this is a lambda so it needs to be executed
     current_html_doc = requests.get(url)
     source_format = sources[job_name].get("format")
     if source_format == "json":
