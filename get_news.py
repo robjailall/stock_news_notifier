@@ -37,8 +37,12 @@ def notify(url, diff_text=""):
 def process_news(db, job_name, sources):
     logging.debug("Processing job {}".format(job_name))
 
-    url = sources[job_name]["url"]()  # this is a lambda so it needs to be executed
-    current_html_doc = requests.get(url)
+    url_fn = sources[job_name]["url"]  # this is a lambda so it needs to be executed
+    if sources[job_name].get("method") and sources[job_name].get("method").upper() == "POST":
+        payload = sources[job_name].get("payload")() if sources[job_name].get("payload") else None
+        current_html_doc = requests.post(url_fn(), data=payload)
+    else:
+        current_html_doc = requests.get(url_fn())
     source_format = sources[job_name].get("format")
     if source_format == "json":
         current_version = get_json_element(text=current_html_doc.text,
@@ -54,8 +58,8 @@ def process_news(db, job_name, sources):
         diff_string = get_diff_string(current_version, last_version)
 
         if last_version != current_version:
-            redirect_url = sources[job_name].get("redirect_url") or url
-            notify(redirect_url, diff_text=diff_string)
+            redirect_url = sources[job_name].get("redirect_url") or url_fn
+            notify(redirect_url(), diff_text=diff_string)
 
         db.save_last_crawl(job_name, current_version, diff_string=diff_string)
 
