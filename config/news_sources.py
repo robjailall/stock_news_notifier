@@ -22,7 +22,7 @@ news_sources = {
         "redirect_url": "https://tinyurl.com/y3vge6wa"
     },
     "spac_filings": {
-        "url": lambda: "https://www.sec.gov/edgar/search/?r=el#/q=&dateRange=5y&startdt={}&enddt={}&category=all&locationType=located&locationCode=all&ciks=&entityName=&forms=424B4&page=1&SIC=6770".format(
+        "url": lambda: "https://www.sec.gov/edgar/search/?r=el#/q=&dateRange=custom&startdt={}&enddt={}&category=all&locationType=located&locationCode=all&ciks=&entityName=&forms=424B4&page=1&SIC=6770".format(
             (datetime.now() - timedelta(days=55)).date().strftime("%Y-%m-%d"),
             (datetime.now() - timedelta(days=50)).date().strftime("%Y-%m-%d")),
         "element_selector": {"id": "hits"}
