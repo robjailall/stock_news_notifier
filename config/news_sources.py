@@ -18,5 +18,9 @@ news_sources = {
         },
         # "element_selector": {"id": "results_list"},
         "redirect_url": "https://tinyurl.com/y3vge6wa"
-    }
+    },
+    "spac_filings": {
+        "url": "https://www.sec.gov/edgar/search/?r=el#/q=&dateRange=5y&startdt=2015-09-04&enddt=&category=all&locationType=located&locationCode=all&ciks=&entityName=&forms=424B4&page=1&SIC=6770",
+        "element_selector": {"id": "hits"}
+    },
 }
