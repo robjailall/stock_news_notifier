@@ -33,7 +33,9 @@ news_sources = {
             "result_key_filter": ["_source"]
         },
         "method": "POST",
-        "payload": lambda: '{"q":"","dateRange":"custom","startdt":"2020-07-11","enddt":"2020-07-16","category":"all","locationType":"located","locationCode":"all","ciks":"","entityName":"","forms":["424B4","8k"],"page":"1","SIC":"6770","from":0}',
+        "payload": lambda: '{{"q":"","dateRange":"custom","startdt":"{}","enddt":"{}","category":"all","locationType":"located","locationCode":"all","ciks":"","entityName":"","forms":["424B4","8k"],"page":"1","SIC":"6770","from":0}}'.format(
+            (datetime.now() - timedelta(days=55)).date().strftime("%Y-%m-%d"),
+            (datetime.now() - timedelta(days=50)).date().strftime("%Y-%m-%d")),
         "format": "json"
     },
 }
