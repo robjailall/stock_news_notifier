@@ -21,21 +21,21 @@ news_sources = {
     #     # "element_selector": {"id": "results_list"},
     #     "redirect_url": lambda: "https://tinyurl.com/y3vge6wa"
     # },
-    "spac_filings": {
-        #  curl -v -X POST https://efts.sec.gov/LATEST/search-index -d '{"dateRange":"5y","startdt":"2020-07-11","enddt":"2020-07-16","category":"all","locationType":"located","locationCode":"all","forms":["424B4","8K"],"page":"1","from":0}'
-        "url": lambda: "https://efts.sec.gov/LATEST/search-index",
-        "redirect_url": lambda: "https://www.sec.gov/edgar/search/?r=el#/q=&dateRange=custom&startdt={}&enddt={}&category=all&locationType=located&locationCode=all&ciks=&entityName=&forms=424B4&page=1&SIC=6770".format(
-            (datetime.now() - timedelta(days=55)).date().strftime("%Y-%m-%d"),
-            (datetime.now() - timedelta(days=50)).date().strftime("%Y-%m-%d")),
-        # "element_selector": {"id": "hits"},
-        "element_selector": {
-            "key_chain": ["hits", "hits"],
-            "result_key_filter": ["_source"]
-        },
-        "method": "POST",
-        "payload": lambda: '{{"q":"","dateRange":"custom","startdt":"{}","enddt":"{}","category":"all","locationType":"located","locationCode":"all","ciks":"","entityName":"","forms":["424B4","8k"],"page":"1","SIC":"6770","from":0}}'.format(
-            (datetime.now() - timedelta(days=55)).date().strftime("%Y-%m-%d"),
-            (datetime.now() - timedelta(days=50)).date().strftime("%Y-%m-%d")),
-        "format": "json"
-    },
+    # "spac_filings": {
+    #     #  curl -v -X POST https://efts.sec.gov/LATEST/search-index -d '{"dateRange":"5y","startdt":"2020-07-11","enddt":"2020-07-16","category":"all","locationType":"located","locationCode":"all","forms":["424B4","8K"],"page":"1","from":0}'
+    #     "url": lambda: "https://efts.sec.gov/LATEST/search-index",
+    #     "redirect_url": lambda: "https://www.sec.gov/edgar/search/?r=el#/q=&dateRange=custom&startdt={}&enddt={}&category=all&locationType=located&locationCode=all&ciks=&entityName=&forms=424B4&page=1&SIC=6770".format(
+    #         (datetime.now() - timedelta(days=55)).date().strftime("%Y-%m-%d"),
+    #         (datetime.now() - timedelta(days=50)).date().strftime("%Y-%m-%d")),
+    #     # "element_selector": {"id": "hits"},
+    #     "element_selector": {
+    #         "key_chain": ["hits", "hits"],
+    #         "result_key_filter": ["_source"]
+    #     },
+    #     "method": "POST",
+    #     "payload": lambda: '{{"q":"","dateRange":"custom","startdt":"{}","enddt":"{}","category":"all","locationType":"located","locationCode":"all","ciks":"","entityName":"","forms":["424B4","8k"],"page":"1","SIC":"6770","from":0}}'.format(
+    #         (datetime.now() - timedelta(days=55)).date().strftime("%Y-%m-%d"),
+    #         (datetime.now() - timedelta(days=50)).date().strftime("%Y-%m-%d")),
+    #     "format": "json"
+    # },
 }
