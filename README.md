@@ -10,6 +10,7 @@
 
 1. Set `DEVELOPMENT_MODE=true` to poll the news sources only once
 1. Set `LOGLEVEL=debug` to print more stuff
+1. Set `TWILIO_TESTING=1` to not actually send a push notification
 
 # Example Heroku Setup
 
