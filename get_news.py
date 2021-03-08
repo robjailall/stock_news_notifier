@@ -35,17 +35,22 @@ def notify(url, diff_text=""):
 
 
 def process_news(db, job_name, sources):
-    logging.debug("Processing job {}".format(job_name))
+    logging.debug("## Processing job {} ##".format(job_name))
 
+    logging.debug("Setting up request")
     url_fn = sources[job_name]["url"]  # this is a lambda so it needs to be executed
     request_args = {}
     if sources[job_name].get("headers"):
         request_args["headers"] = sources[job_name].get("headers")
+
+    logging.debug("Doing request")
     if sources[job_name].get("method") and sources[job_name].get("method").upper() == "POST":
         payload = sources[job_name].get("payload")() if sources[job_name].get("payload") else None
         current_html_doc = requests.post(url_fn(), data=payload, **request_args)
     else:
         current_html_doc = requests.get(url_fn(), **request_args)
+
+    logging.debug("Parsing response")
     source_format = sources[job_name].get("format")
     if source_format == "json":
         current_version = get_json_element(text=current_html_doc.text,
@@ -55,16 +60,23 @@ def process_news(db, job_name, sources):
                                            element_selector=sources[job_name]["element_selector"])
 
     if current_version is not None:
+        logging.debug("Comparing response to last response in database")
 
         last_version = db.get_last_crawl(news_source=job_name)
 
         diff_string = get_diff_string(current_version, last_version)
 
         if last_version != current_version:
+            logging.debug("Found a diff!")
             redirect_url = sources[job_name].get("redirect_url") or url_fn
             notify(redirect_url(), diff_text=diff_string)
+        else:
+            logging.debug("No diff found")
 
+        logging.debug("Updating response saved in database")
         db.save_last_crawl(job_name, current_version, diff_string=diff_string)
+    else:
+        logging.debug("No data in response")
 
 
 def get_diff_string(current_version, last_version):
