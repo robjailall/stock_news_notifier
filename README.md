@@ -8,13 +8,14 @@
 
 ## Debugging
 
-1. Set `DEVELOPMENT_MODE=true` to poll the news sources only once
-1. Set `LOGLEVEL=debug` to print more stuff
-1. Set `TWILIO_TESTING=1` to not actually send a push notification
+- Unset `DB_SOURCE_TYPE` to use a local text file as the database rather than postgres
+- Set `DEVELOPMENT_MODE=true` to poll the news sources only once
+- Set `LOGLEVEL=debug` to print more stuff
+- Set `TWILIO_TESTING=1` to not actually send a push notification
 
 # Example Heroku Setup
 
-    DATABASE_URL=
+    DATABASE_URL=https://mydatabase
     DB_SOURCE_TYPE=postgres
     RECIPIENT_PHONE_NUM="+5555555555"
     TWILIO_ACCOUNT_SID=123
