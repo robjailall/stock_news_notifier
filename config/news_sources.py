@@ -40,7 +40,7 @@ news_sources = {
     # },
     "covid_ca_volunteer_94115": {
         "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
-        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
+        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=94115",
         "element_selector": {
             "key_chain": ["actions"],
             "result_key_filter": ["returnValue"]
@@ -66,7 +66,7 @@ news_sources = {
     },
     "covid_ca_volunteer_96150": {
         "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
-        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
+        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=96150",
         "element_selector": {
             "key_chain": ["actions"],
             "result_key_filter": ["returnValue"]
@@ -92,7 +92,7 @@ news_sources = {
     },
     "covid_ca_volunteer_94203": {
         "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
-        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
+        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=94203",
         "element_selector": {
             "key_chain": ["actions"],
             "result_key_filter": ["returnValue"]
@@ -118,7 +118,7 @@ news_sources = {
     },
     "covid_ca_volunteer_94089": {
         "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
-        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
+        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=94089",
         "element_selector": {
             "key_chain": ["actions"],
             "result_key_filter": ["returnValue"]
