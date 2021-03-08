@@ -38,11 +38,14 @@ def process_news(db, job_name, sources):
     logging.debug("Processing job {}".format(job_name))
 
     url_fn = sources[job_name]["url"]  # this is a lambda so it needs to be executed
+    request_args = {}
+    if sources[job_name].get("headers"):
+        request_args["headers"] = sources[job_name].get("headers")
     if sources[job_name].get("method") and sources[job_name].get("method").upper() == "POST":
         payload = sources[job_name].get("payload")() if sources[job_name].get("payload") else None
-        current_html_doc = requests.post(url_fn(), data=payload)
+        current_html_doc = requests.post(url_fn(), data=payload, **request_args)
     else:
-        current_html_doc = requests.get(url_fn())
+        current_html_doc = requests.get(url_fn(), **request_args)
     source_format = sources[job_name].get("format")
     if source_format == "json":
         current_version = get_json_element(text=current_html_doc.text,
