@@ -8,7 +8,7 @@
 
 ## Debugging
 
-- Unset `DB_SOURCE_TYPE` to use a local text file as the database rather than postgres
+- Unset `DB_SOURCE_TYPE` to use a local text file as the database rather than postgres. It saves data into the `diffs` folder in the current directory
 - Set `DEVELOPMENT_MODE=true` to poll the news sources only once
 - Set `LOGLEVEL=debug` to print more stuff
 - Set `TWILIO_TESTING=1` to not actually send a push notification
