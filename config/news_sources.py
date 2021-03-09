@@ -78,7 +78,7 @@ news_sources = {
         "format": "json",
         "headers": _ca_covid_volunteer_common_headers
     },
-    "covid_ca_volunteer_scaramento": {
+    "covid_ca_volunteer_sacramento": {
         "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
         "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=94203",
         "element_selector": {
@@ -104,22 +104,3 @@ news_sources = {
     },
 
 }
-'''
-
-curl 'https://myturnvolunteer.ca.gov/s/sfsites/aura?r=22&aura.ApexAction.execute=1' \
--X 'POST' \
--H 'Content-Type: application/x-www-form-urlencoded;charset=UTF-8' \
--H 'Accept: */*' \
--H 'Accept-Language: en-us' \
--H 'Accept-Encoding: gzip, deflate, br' \
--H 'Host: myturnvolunteer.ca.gov' \
--H 'Origin: https://myturnvolunteer.ca.gov' \
--H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15' \
--H 'Referer: https://myturnvolunteer.ca.gov/s/' \
--H 'Content-Length: 978' \
--H 'Connection: keep-alive' \
--H 'Cookie: renderCtx=%7B%22pageId%22%3A%224d72295e-92a7-4b09-9a8d-fe789ec4b457%22%2C%22schema%22%3A%22Published%22%2C%22viewType%22%3A%22Published%22%2C%22brandingSetId%22%3A%22f5c37b15-72c4-4421-af84-37960d2fa7e0%22%2C%22audienceIds%22%3A%22%22%7D; _ga=GA1.2.279432795.1609113614; _gid=GA1.2.849401557.1615227220; nmstat=d6179bd7-8eea-91da-10e4-fca126cf7138; pctrk=a1b2e779-7598-4483-b388-3d5804ec92d6; CookieConsentPolicy=0:0; _ga_RJPGSHNVCG=GS1.1.1615227219.1.1.1615227354.0; _abck=76CF50A8B9683FEF3DD66522373B0206~0~YAAQDXpCFwWUtRJ4AQAAr2sLEwUVb/bn1ifeRPp6ZgBMMELYiFyewyvAqpC2QTTeENiKTBmmKJUsQC0BrUAaBzepqtA9vr7YHd/Vxi4IOYUbUf+rks3PIRaYVmxH6m3pq4NCiCZ9eV9Irlm5m5jcrQKYRTePBtN1nq6afiBzK0yn7z7CeGnT8DF+K/YWBgsnX+JhK/VNNGlLxdzcQc/cr5/2ARMP4VsFoj8kdeTxYPfOCRNnpLZL6iiTg5GwrLUWJeidTaNtMdipqIQCjqmVaHmXo9CRVuf0pKqIB5OX7UqUtu1LGQ230yqmVxyFjF3Bu+XREDNVgLr/OZ7TuROJ957JbZVJoyDmnSevxPP1hUFaLCoVdQPZhSN+Auz3pnQTkhEf8IizsIAPnG9uRjVdqFcZQDH0~-1~-1~-1; bm_sz=B7D161A8D66E74B845A3F19E99E5DF5B~YAAQDXpCFwSUtRJ4AQAAr2sLEwvD6wFUn0KHp38N3md3xuMgvPoKAv1WWm9zGpN5LsYvflgoJQJx41qvSmCsqMwVLJqRzPk/RTUj6q3nfg6Ul4r4WWlDQY2Gh9LDOz0W3wkYFe9Xbg0O42TSRTxKDiq2Q8abEsI/iNrFJPLP9cICcYcWsPH4mmQrShc=; _ga_HPRCS5B3HR=GS1.1.1614894971.1.1.1614894982.0' \
--H 'X-SFDC-Request-Id: 718766000000774bdf' \
--H 'X-SFDC-Page-Scope-Id: 1ff42952-c1e4-4e33-84fb-2ea37544b8c3' \
---data 'message=%7B%22actions%22%3A%5B%7B%22id%22%3A%22188%3Ba%22%2C%22descriptor%22%3A%22aura%3A%2F%2FApexActionController%2FACTION%24execute%22%2C%22callingDescriptor%22%3A%22UNKNOWN%22%2C%22params%22%3A%7B%22namespace%22%3A%22skedvm%22%2C%22classname%22%3A%22LocationController%22%2C%22method%22%3A%22getLocationsByTags%22%2C%22params%22%3A%7B%22type%22%3A%22General%20Support%22%2C%22tags%22%3A%5B%22a3It00000001ocOEAQ%22%2C%22a3It00000001ocYEAQ%22%2C%22a3It00000001ocnEAA%22%5D%2C%22lat%22%3A37.4110966%2C%22lon%22%3A-122.0181762%2C%22max%22%3A50%7D%2C%22cacheable%22%3Afalse%2C%22isContinuation%22%3Afalse%7D%7D%5D%7D&aura.context=%7B%22mode%22%3A%22PROD%22%2C%22fwuid%22%3A%228WYDoRiNKzw4em08r-Gg4A%22%2C%22app%22%3A%22siteforce%3AcommunityApp%22%2C%22loaded%22%3A%7B%22APPLICATION%40markup%3A%2F%2Fsiteforce%3AcommunityApp%22%3A%22wVxIbCAtfa9TUPXbbfmRlA%22%7D%2C%22dn%22%3A%5B%5D%2C%22globals%22%3A%7B%7D%2C%22uad%22%3Afalse%7D&aura.pageURI=%2Fs%2F%23search&aura.token=undefined'
-'''
