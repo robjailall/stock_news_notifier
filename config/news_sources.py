@@ -16,6 +16,17 @@ _ca_covid_volunteer_common_headers = {
     "X-SFDC-Page-Scope-Id": "54259842-0224-4a70-a77d-7f4399bc7f7d"
 }
 
+_ca_covid_volunteer_payload_template = {
+    "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
+    "element_selector": {
+        "key_chain": ["actions"],
+        "result_key_filter": ["returnValue"]
+    },
+    "method": "POST",
+    "format": "json",
+    "headers": _ca_covid_volunteer_common_headers
+}
+
 news_sources = {
     "treasury_emergency_loans": {
         "url": lambda: "https://home.treasury.gov/policy-issues/cares/preserving-jobs-for-american-industry/loans-to-air-carriers-eligible-businesses-and-national-security-businesses",
@@ -55,52 +66,24 @@ news_sources = {
     #     "format": "json"
     # },
     "covid_ca_volunteer_sf": {
-        "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
-        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=94115",
-        "element_selector": {
-            "key_chain": ["actions"],
-            "result_key_filter": ["returnValue"]
-        },
-        "method": "POST",
+        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=sf",
         "payload": lambda: 'message=%7B%22actions%22%3A%5B%7B%22id%22%3A%22189%3Ba%22%2C%22descriptor%22%3A%22aura%3A%2F%2FApexActionController%2FACTION%24execute%22%2C%22callingDescriptor%22%3A%22UNKNOWN%22%2C%22params%22%3A%7B%22namespace%22%3A%22skedvm%22%2C%22classname%22%3A%22LocationController%22%2C%22method%22%3A%22getLocationsByTags%22%2C%22params%22%3A%7B%22type%22%3A%22General%20Support%22%2C%22tags%22%3A%5B%22a3It00000001ocOEAQ%22%2C%22a3It00000001ocnEAA%22%2C%22a3It00000001ocYEAQ%22%5D%2C%22lat%22%3A37.7877522%2C%22lon%22%3A-122.4382307%2C%22max%22%3A50%7D%2C%22cacheable%22%3Afalse%2C%22isContinuation%22%3Afalse%7D%7D%5D%7D&aura.context=%7B%22mode%22%3A%22PROD%22%2C%22fwuid%22%3A%228WYDoRiNKzw4em08r-Gg4A%22%2C%22app%22%3A%22siteforce%3AcommunityApp%22%2C%22loaded%22%3A%7B%22APPLICATION%40markup%3A%2F%2Fsiteforce%3AcommunityApp%22%3A%22wVxIbCAtfa9TUPXbbfmRlA%22%7D%2C%22dn%22%3A%5B%5D%2C%22globals%22%3A%7B%7D%2C%22uad%22%3Afalse%7D&aura.pageURI=%2Fs%2F%23search&aura.token=undefined',
-        "format": "json",
-        "headers": _ca_covid_volunteer_common_headers
+        **_ca_covid_volunteer_payload_template
     },
     "covid_ca_volunteer_south_lake_tahoe": {
-        "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
-        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=96150",
-        "element_selector": {
-            "key_chain": ["actions"],
-            "result_key_filter": ["returnValue"]
-        },
-        "method": "POST",
+        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=tahoe",
         "payload": lambda: 'message=%7B%22actions%22%3A%5B%7B%22id%22%3A%22180%3Ba%22%2C%22descriptor%22%3A%22aura%3A%2F%2FApexActionController%2FACTION%24execute%22%2C%22callingDescriptor%22%3A%22UNKNOWN%22%2C%22params%22%3A%7B%22namespace%22%3A%22skedvm%22%2C%22classname%22%3A%22LocationController%22%2C%22method%22%3A%22getLocationsByTags%22%2C%22params%22%3A%7B%22type%22%3A%22General%20Support%22%2C%22tags%22%3A%5B%22a3It00000001ocOEAQ%22%2C%22a3It00000001ocYEAQ%22%2C%22a3It00000001ocnEAA%22%5D%2C%22lat%22%3A38.8864448%2C%22lon%22%3A-119.9971769%2C%22max%22%3A50%7D%2C%22cacheable%22%3Afalse%2C%22isContinuation%22%3Afalse%7D%7D%5D%7D&aura.context=%7B%22mode%22%3A%22PROD%22%2C%22fwuid%22%3A%228WYDoRiNKzw4em08r-Gg4A%22%2C%22app%22%3A%22siteforce%3AcommunityApp%22%2C%22loaded%22%3A%7B%22APPLICATION%40markup%3A%2F%2Fsiteforce%3AcommunityApp%22%3A%22wVxIbCAtfa9TUPXbbfmRlA%22%7D%2C%22dn%22%3A%5B%5D%2C%22globals%22%3A%7B%7D%2C%22uad%22%3Afalse%7D&aura.pageURI=%2Fs%2F%23search&aura.token=undefined',
-        "format": "json",
-        "headers": _ca_covid_volunteer_common_headers
+        **_ca_covid_volunteer_payload_template
     },
     "covid_ca_volunteer_sacramento": {
-        "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
-        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=94203",
-        "element_selector": {
-            "key_chain": ["actions"],
-            "result_key_filter": ["returnValue"]
-        },
-        "method": "POST",
+        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=sacramento",
         "payload": lambda: 'message=%7B%22actions%22%3A%5B%7B%22id%22%3A%22180%3Ba%22%2C%22descriptor%22%3A%22aura%3A%2F%2FApexActionController%2FACTION%24execute%22%2C%22callingDescriptor%22%3A%22UNKNOWN%22%2C%22params%22%3A%7B%22namespace%22%3A%22skedvm%22%2C%22classname%22%3A%22LocationController%22%2C%22method%22%3A%22getLocationsByTags%22%2C%22params%22%3A%7B%22type%22%3A%22General%20Support%22%2C%22tags%22%3A%5B%22a3It00000001ocOEAQ%22%2C%22a3It00000001ocYEAQ%22%2C%22a3It00000001ocnEAA%22%5D%2C%22lat%22%3A38.8864448%2C%22lon%22%3A-119.9971769%2C%22max%22%3A50%7D%2C%22cacheable%22%3Afalse%2C%22isContinuation%22%3Afalse%7D%7D%5D%7D&aura.context=%7B%22mode%22%3A%22PROD%22%2C%22fwuid%22%3A%228WYDoRiNKzw4em08r-Gg4A%22%2C%22app%22%3A%22siteforce%3AcommunityApp%22%2C%22loaded%22%3A%7B%22APPLICATION%40markup%3A%2F%2Fsiteforce%3AcommunityApp%22%3A%22wVxIbCAtfa9TUPXbbfmRlA%22%7D%2C%22dn%22%3A%5B%5D%2C%22globals%22%3A%7B%7D%2C%22uad%22%3Afalse%7D&aura.pageURI=%2Fs%2F%23search&aura.token=undefined',
-        "format": "json",
-        "headers": _ca_covid_volunteer_common_headers
+        **_ca_covid_volunteer_payload_template
     },
     "covid_ca_volunteer_san_jose": {
-        "url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1",
-        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=94089",
-        "element_selector": {
-            "key_chain": ["actions"],
-            "result_key_filter": ["returnValue"]
-        },
-        "method": "POST",
+        "redirect_url": lambda: "https://myturnvolunteer.ca.gov/s/sfsites/aura?r=15&aura.ApexAction.execute=1&zip=sanjose",
         "payload": lambda: 'message=%7B%22actions%22%3A%5B%7B%22id%22%3A%22188%3Ba%22%2C%22descriptor%22%3A%22aura%3A%2F%2FApexActionController%2FACTION%24execute%22%2C%22callingDescriptor%22%3A%22UNKNOWN%22%2C%22params%22%3A%7B%22namespace%22%3A%22skedvm%22%2C%22classname%22%3A%22LocationController%22%2C%22method%22%3A%22getLocationsByTags%22%2C%22params%22%3A%7B%22type%22%3A%22General%20Support%22%2C%22tags%22%3A%5B%22a3It00000001ocOEAQ%22%2C%22a3It00000001ocYEAQ%22%2C%22a3It00000001ocnEAA%22%5D%2C%22lat%22%3A37.4110966%2C%22lon%22%3A-122.0181762%2C%22max%22%3A50%7D%2C%22cacheable%22%3Afalse%2C%22isContinuation%22%3Afalse%7D%7D%5D%7D&aura.context=%7B%22mode%22%3A%22PROD%22%2C%22fwuid%22%3A%228WYDoRiNKzw4em08r-Gg4A%22%2C%22app%22%3A%22siteforce%3AcommunityApp%22%2C%22loaded%22%3A%7B%22APPLICATION%40markup%3A%2F%2Fsiteforce%3AcommunityApp%22%3A%22wVxIbCAtfa9TUPXbbfmRlA%22%7D%2C%22dn%22%3A%5B%5D%2C%22globals%22%3A%7B%7D%2C%22uad%22%3Afalse%7D&aura.pageURI=%2Fs%2F%23search&aura.token=undefined',
-        "format": "json",
-        "headers": _ca_covid_volunteer_common_headers
+        **_ca_covid_volunteer_payload_template
     },
 
 }
